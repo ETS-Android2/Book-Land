@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "839673747088",
+    "firebase_url": "https://book-land-69e1f.firebaseio.com",
+    "project_id": "book-land-69e1f",
+    "storage_bucket": "book-land-69e1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839673747088:android:4b54dcc39ab6fcd3e72a15",
+        "android_client_info": {
+          "package_name": "com.example.bookland"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839673747088-gb7jkhfmmpp4vo2skgfovrk5v07phupj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookland",
+            "certificate_hash": "084393d4a988dc54125f10ff313dd1a4b052bf1d"
+          }
+        },
+        {
+          "client_id": "839673747088-khcpfol7b6q3h1l2sfcrdqrboli6n35q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX2fe2Bq7zDLuqvGjxuxz2U50hlngIWjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839673747088-khcpfol7b6q3h1l2sfcrdqrboli6n35q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

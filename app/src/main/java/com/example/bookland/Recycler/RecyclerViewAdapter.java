@@ -1,0 +1,79 @@
+package com.example.bookland.Recycler;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.example.bookland.Book;
+import com.example.bookland.Activity.BookDetail;
+import com.example.bookland.R;
+
+import java.util.ArrayList;
+
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyView> {
+    ArrayList<Book> mData;
+    Context context;
+
+    public RecyclerViewAdapter(Context context, ArrayList<Book> mData){
+        this.context = context;
+        this.mData = mData;
+    }
+
+
+    @NonNull
+    @Override
+    public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.card_top, parent, false);
+        return new MyView(view);    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyView holder, final int position) {
+        holder.name.setText(mData.get(position).getName());
+        holder.price.setText(mData.get(position).getPrice());
+        holder.rating.setText(mData.get(position).getRating());
+        Glide.with(context).load(mData.get(position).getImageUrl()).into(holder.image);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BookDetail.class);
+                intent.putExtra("name", mData.get(position).getName());
+                intent.putExtra("price", mData.get(position).getPrice());
+                intent.putExtra("image", mData.get(position).getImageUrl());
+                intent.putExtra("rating", mData.get(position).getRating());
+                intent.putExtra("description", mData.get(position).getDescription());
+                context.startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mData.size();
+    }
+
+    public class MyView extends RecyclerView.ViewHolder {
+        CardView cardView;
+        TextView name, price, rating;
+        ImageView image;
+        public MyView(@NonNull View itemView) {
+            super(itemView);
+            cardView = itemView.findViewById(R.id.gridlayout);
+            name = itemView.findViewById(R.id.name_id);
+            price = itemView.findViewById(R.id.fee_id);
+            image = itemView.findViewById(R.id.img_grid);
+            rating = itemView.findViewById(R.id.rating_id);
+        }
+    }
+}

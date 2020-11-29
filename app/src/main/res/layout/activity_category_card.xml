@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="280dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gridCard"
+    app:cardCornerRadius="8dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_card"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="#424242"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_card"
+            android:id="@+id/name_card"
+            android:maxLines="1"
+            android:text="Name"
+            android:textSize="16dp"
+            android:paddingRight="5dp"
+            android:ems="3"
+            android:ellipsize="end"
+            android:paddingLeft="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_card"
+            android:id="@+id/fee_card"
+            android:text="Fee"
+            android:textSize="14sp"
+            android:paddingLeft="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_card"
+            android:layout_toRightOf="@+id/fee_card"
+            android:id="@+id/txtfeeCard"
+            android:text="som"
+            android:textSize="14sp"
+            android:paddingLeft="5dp"/>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/fee_card"
+            android:id="@+id/star_card"
+            android:src="@drawable/ic_star"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fee_card"
+            android:layout_toRightOf="@+id/star_card"
+            android:id="@+id/rating_card"
+            android:text="Rating"
+            android:textSize="14sp"
+            android:paddingLeft="5dp"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/bookmark"
+            android:id="@+id/saved_card"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

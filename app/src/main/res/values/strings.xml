@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">BookLand</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="BookCategory">
+        <item>Biography</item>
+        <item>Business</item>
+        <item>Cooking</item>
+        <item>Historical</item>
+        <item>Home &amp; Garden</item>
+        <item>Horror</item>
+        <item>Kids</item>
+        <item>Novel</item>
+        <item>Medical</item>
+        <item>Religion</item>
+        <item>Fantasy</item>
+        <item>Science &amp; Math</item>
+        <item>Sports</item>
+        <item>Detective</item>
+        <item>Economics</item>
+        <item>Philosophy &amp; Motivation</item>
+    </string-array>
+</resources>
