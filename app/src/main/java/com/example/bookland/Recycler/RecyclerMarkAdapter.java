@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.bookland.Activity.InsertToFirebase;
 import com.example.bookland.Book;
 import com.example.bookland.Activity.BookDetail;
+import com.example.bookland.BookMark;
 import com.example.bookland.R;
 import com.example.bookland.TabLayout.TopFragment;
 import com.example.bookland.User;
@@ -30,19 +31,17 @@ import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyView> {
-    ArrayList<Book> mData;
+public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapter.MyView> {
+    ArrayList<BookMark> markData;
     Context context;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     TopFragment topFragment = new TopFragment();
-    private boolean check = false;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Book> mData){
+    public RecyclerMarkAdapter(Context context, ArrayList<BookMark> markData){
         this.context = context;
-        this.mData = mData;
+        this.markData = markData;
     }
-
 
     @NonNull
     @Override
@@ -53,41 +52,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final MyView holder, final int position) {
-        holder.name.setText(mData.get(position).getName());
-        holder.price.setText(mData.get(position).getPrice());
-        holder.rating.setText(mData.get(position).getRating());
-        Glide.with(context).load(mData.get(position).getImage()).into(holder.image);
+        holder.name.setText(markData.get(position).getNameMark());
+        holder.price.setText(markData.get(position).getPriceMark());
+        holder.rating.setText(markData.get(position).getRatingMark());
+        Glide.with(context).load(markData.get(position).getImageUrlMark()).into(holder.image);
 
-        if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
-           check = false;
-        }else{
-            check = true;
-        }
+
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(check==false){
-                    check = true;
+                if(topFragment.isCheck()==false){
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
+                    topFragment.setCheck(true);
                     rootNode = FirebaseDatabase.getInstance();
                     reference = rootNode.getReference("Book_Saved");
-                    /*
-                    String name = mData.get(position).getName();
-                    String author = mData.get(position).getAuthor();
-                    String price = mData.get(position).getPrice();
-                    String category = mData.get(position).getCagegory();
-                    String rating = mData.get(position).getRating();
-                    String description = mData.get(position).getDescription();
-                    String image = mData.get(position).getImageUrl();
-                    User user = new User(name, author, price,category, rating, description, image);
-
-                     */
-                    reference.child(mData.get(position).getName()).setValue(mData.get(position));
+                    String name = markData.get(position).getNameMark();
+                    String author = markData.get(position).getAuthorMark();
+                    String price = markData.get(position).getPriceMark();
+                    String rating = markData.get(position).getRatingMark();
+                    String description = markData.get(position).getDescriptionMark();
+                    String category = markData.get(position).getCategoryMark();
+                    String image = markData.get(position).getImageUrlMark();
+                    User user = new User(name, author, price, category, rating, description, image);
+                    reference.child(name).setValue(user);
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    reference = FirebaseDatabase.getInstance().getReference("Book_Saved").child(mData.get(position).getName());
+                    reference = FirebaseDatabase.getInstance().getReference("Book_Saved").child(markData.get(position).getNameMark());
                     reference.removeValue();
-                    check = false;
+                    topFragment.setCheck(false);
                 }
 
             }
@@ -97,11 +89,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetail.class);
-                intent.putExtra("name", mData.get(position).getName());
-                intent.putExtra("price", mData.get(position).getPrice());
-                intent.putExtra("image", mData.get(position).getImage());
-                intent.putExtra("rating", mData.get(position).getRating());
-                intent.putExtra("description", mData.get(position).getDescription());
+                intent.putExtra("name", markData.get(position).getNameMark());
+                intent.putExtra("price", markData.get(position).getPriceMark());
+                intent.putExtra("image", markData.get(position).getImageUrlMark());
+                intent.putExtra("rating", markData.get(position).getRatingMark());
+                intent.putExtra("description", markData.get(position).getDescriptionMark());
 
                 context.startActivity(intent);
             }
@@ -111,7 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return markData.size();
     }
 
 

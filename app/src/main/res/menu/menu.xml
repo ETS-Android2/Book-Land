@@ -9,6 +9,11 @@
         android:title="Category"
         android:icon="@drawable/ic_baseline_more_24"/>
     <item
+        android:id="@+id/navigation_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search"/>
+
+    <item
         android:id="@+id/navigation_mark"
         android:title="Mark"
         android:icon="@drawable/ic_baseline_bookmark_24"/>

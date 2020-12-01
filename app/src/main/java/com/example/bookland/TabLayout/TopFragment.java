@@ -32,6 +32,16 @@ public class TopFragment extends Fragment {
     ArrayList<Book> mData;
     Context context;
 
+    private boolean check;
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
     private DatabaseReference myRef;
 
     private static final String ARG_PARAM1 = "param1";
@@ -39,10 +49,6 @@ public class TopFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-
-    public TopFragment() {
-    }
-
 
 
     public static TopFragment newInstance(String param1, String param2) {
@@ -76,11 +82,10 @@ public class TopFragment extends Fragment {
         ClearAll();
         DataFirebase();
 
-
-
         return view;
 
     }
+
     private void DataFirebase(){
         Query query = myRef.child("Book_List");
         query.addValueEventListener(new ValueEventListener() {
@@ -88,12 +93,13 @@ public class TopFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot i : snapshot.getChildren()){
                     Book book = new Book();
-                    book.setImageUrl(i.child("image").getValue().toString());
+                    book.setImage(i.child("image").getValue().toString());
                     book.setName(i.child("name").getValue().toString());
                     book.setAuthor(i.child("author").getValue().toString());
                     book.setPrice(i.child("price").getValue().toString());
                     book.setRating(i.child("rating").getValue().toString());
                     book.setDescription(i.child("description").getValue().toString());
+                    book.setCategory(i.child("category").getValue().toString());
                     mData.add(book);
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), mData);

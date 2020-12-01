@@ -1,25 +1,25 @@
 package com.example.bookland;
 
-public class Book {
+public class User {
     private String name;
     private String author;
     private String price;
-    private String image;
+    private String category;
     private String rating;
     private String description;
-    private String category;
+    private String image;
 
-    public Book() {
+    public User() {
     }
 
-    public Book(String name, String author, String price, String image, String rating, String description,String category) {
+    public User(String name,String author, String price, String category, String rating, String description, String image) {
         this.name = name;
         this.author = author;
         this.price = price;
-        this.image = image;
+        this.category = category;
         this.rating = rating;
         this.description = description;
-        this.category = category;
+        this.image = image;
     }
 
     public String getCategory() {
@@ -30,14 +30,6 @@ public class Book {
         this.category = category;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getAuthor() {
         return author;
     }
@@ -46,20 +38,20 @@ public class Book {
         this.author = author;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPrice() {
         return price;
     }
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getRating() {
@@ -77,4 +69,13 @@ public class Book {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
+

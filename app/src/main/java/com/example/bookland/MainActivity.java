@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.bookland.BottomNavigation.FragmentCategory;
 import com.example.bookland.BottomNavigation.FragmentHome;
 import com.example.bookland.BottomNavigation.FragmentMark;
+import com.example.bookland.BottomNavigation.FragmentSearch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_mark:
                         fragment = new FragmentMark();
                         break;
+                    case R.id.navigation_search:
+                        fragment = new FragmentSearch();
+                        break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, fragment).commit();
                 return true;
             }
         });
+
     }
 
 }
