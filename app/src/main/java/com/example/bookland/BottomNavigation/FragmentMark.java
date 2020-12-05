@@ -1,6 +1,5 @@
 package com.example.bookland.BottomNavigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bookland.Book;
 import com.example.bookland.BookMark;
 import com.example.bookland.R;
 import com.example.bookland.Recycler.RecyclerMarkAdapter;
-import com.example.bookland.Recycler.RecyclerViewAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,22 +39,24 @@ public class FragmentMark extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view =  inflater.inflate(R.layout.fragment_mark, container, false);
-        recyclerView = view.findViewById(R.id.recycler_id);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_mark_id);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setHasFixedSize(true);
 
         myRef = FirebaseDatabase.getInstance().getReference();
         MarkData = new ArrayList<>();
         ClearAll();
         DataFirebase();
 
-        return view;
 
+        return view;
     }
     private void DataFirebase(){
         Query query = myRef.child("Book_Saved");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ClearAll();
                 for(DataSnapshot i : snapshot.getChildren()){
                     BookMark bookMark = new BookMark();
                     bookMark.setImageUrlMark(i.child("image").getValue().toString());
@@ -72,7 +71,6 @@ public class FragmentMark extends Fragment {
                 recyclerMarkAdapter = new RecyclerMarkAdapter(getActivity().getApplicationContext(), MarkData);
                 recyclerView.setAdapter(recyclerMarkAdapter);
                 recyclerMarkAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -80,9 +78,8 @@ public class FragmentMark extends Fragment {
 
             }
         });
-
-
     }
+
     private void ClearAll(){
         if(MarkData != null){
             MarkData.clear();
@@ -90,6 +87,8 @@ public class FragmentMark extends Fragment {
                 recyclerMarkAdapter.notifyDataSetChanged();
             }
         }
+        MarkData = new ArrayList<>();
+
     }
 
 }

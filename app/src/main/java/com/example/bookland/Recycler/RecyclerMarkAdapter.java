@@ -3,40 +3,36 @@ package com.example.bookland.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.bookland.Activity.InsertToFirebase;
-import com.example.bookland.Book;
 import com.example.bookland.Activity.BookDetail;
 import com.example.bookland.BookMark;
 import com.example.bookland.R;
-import com.example.bookland.TabLayout.TopFragment;
-import com.example.bookland.User;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapter.MyView> {
     ArrayList<BookMark> markData;
     Context context;
     FirebaseDatabase rootNode;
+    FirebaseDatabase rootNodeS;
     DatabaseReference reference;
-    TopFragment topFragment = new TopFragment();
+    DatabaseReference referenceS;
+
 
     public RecyclerMarkAdapter(Context context, ArrayList<BookMark> markData){
         this.context = context;
@@ -57,32 +53,42 @@ public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapte
         holder.rating.setText(markData.get(position).getRatingMark());
         Glide.with(context).load(markData.get(position).getImageUrlMark()).into(holder.image);
 
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("Book_List");
+
+        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref", MODE_PRIVATE);
+        String check = sharedPreferences.getString(markData.get(position).getNameMark(), "");
+        if(check.equals("0") || check.isEmpty() || check.equals("")){
+            holder.saved.setImageResource(R.drawable.bookmark);
+        }else {
+            holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
+        }
 
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(topFragment.isCheck()==false){
+                if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
-                    topFragment.setCheck(true);
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("Book_Saved");
-                    String name = markData.get(position).getNameMark();
-                    String author = markData.get(position).getAuthorMark();
-                    String price = markData.get(position).getPriceMark();
-                    String rating = markData.get(position).getRatingMark();
-                    String description = markData.get(position).getDescriptionMark();
-                    String category = markData.get(position).getCategoryMark();
-                    String image = markData.get(position).getImageUrlMark();
-                    User user = new User(name, author, price, category, rating, description, image);
-                    reference.child(name).setValue(user);
+                    rootNodeS = FirebaseDatabase.getInstance();
+                    referenceS = rootNodeS.getReference("Book_Saved");
+                    referenceS.child(markData.get(position).getNameMark()).setValue(markData.get(position));
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(markData.get(position).getNameMark(), "1");
+                    editor.apply();
+
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    reference = FirebaseDatabase.getInstance().getReference("Book_Saved").child(markData.get(position).getNameMark());
-                    reference.removeValue();
-                    topFragment.setCheck(false);
+                    referenceS = FirebaseDatabase.getInstance().getReference("Book_Saved").child(markData.get(position).getNameMark());
+                    referenceS.removeValue();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(markData.get(position).getNameMark(), "0");
+                    editor.apply();
+
                 }
 
             }
+
         });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

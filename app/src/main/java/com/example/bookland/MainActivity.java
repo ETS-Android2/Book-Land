@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     BottomNavigationView myNavig;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         myNavig = findViewById(R.id.bottom_navigation);
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
+
+        sharedPreferences = getSharedPreferences("user", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("switch", "StringTrue");
+        editor.apply();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new FragmentHome()).commit();
 

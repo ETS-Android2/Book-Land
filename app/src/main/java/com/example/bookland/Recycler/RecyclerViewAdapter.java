@@ -3,53 +3,48 @@ package com.example.bookland.Recycler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.bookland.Activity.InsertToFirebase;
 import com.example.bookland.Book;
 import com.example.bookland.Activity.BookDetail;
 import com.example.bookland.R;
-import com.example.bookland.TabLayout.TopFragment;
-import com.example.bookland.User;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
-
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyView> {
     ArrayList<Book> mData;
     Context context;
     FirebaseDatabase rootNode;
+    FirebaseDatabase rootNodeS;
     DatabaseReference reference;
-    TopFragment topFragment = new TopFragment();
-    private boolean check = false;
+    DatabaseReference referenceS;
 
     public RecyclerViewAdapter(Context context, ArrayList<Book> mData){
         this.context = context;
         this.mData = mData;
     }
 
-
     @NonNull
     @Override
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card_top, parent, false);
-        return new MyView(view);    }
+        return new MyView(view);
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull final MyView holder, final int position) {
@@ -58,39 +53,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.rating.setText(mData.get(position).getRating());
         Glide.with(context).load(mData.get(position).getImage()).into(holder.image);
 
-        if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
-           check = false;
-        }else{
-            check = true;
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("Book_List");
+        
+        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref", MODE_PRIVATE);
+        String check = sharedPreferences.getString(mData.get(position).getName(), "");
+        if(check.equals("0") || check.isEmpty() || check.equals("")){
+            holder.saved.setImageResource(R.drawable.bookmark);
+        }else {
+            holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
         }
+        
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(check==false){
-                    check = true;
+                if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference("Book_Saved");
-                    /*
-                    String name = mData.get(position).getName();
-                    String author = mData.get(position).getAuthor();
-                    String price = mData.get(position).getPrice();
-                    String category = mData.get(position).getCagegory();
-                    String rating = mData.get(position).getRating();
-                    String description = mData.get(position).getDescription();
-                    String image = mData.get(position).getImageUrl();
-                    User user = new User(name, author, price,category, rating, description, image);
+                    rootNodeS = FirebaseDatabase.getInstance();
+                    referenceS = rootNodeS.getReference("Book_Saved");
+                    referenceS.child(mData.get(position).getName()).setValue(mData.get(position));
 
-                     */
-                    reference.child(mData.get(position).getName()).setValue(mData.get(position));
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(mData.get(position).getName(), "1");
+                    editor.apply();
+
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    reference = FirebaseDatabase.getInstance().getReference("Book_Saved").child(mData.get(position).getName());
-                    reference.removeValue();
-                    check = false;
+                    referenceS = FirebaseDatabase.getInstance().getReference("Book_Saved").child(mData.get(position).getName());
+                    referenceS.removeValue();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(mData.get(position).getName(), "0");
+                    editor.apply();
+
                 }
 
             }
+
         });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +112,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
-
-
     public class MyView extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView name, price, rating;
         ImageView image, saved;
+
         @SuppressLint("UseCompatLoadingForDrawables")
         public MyView(@NonNull View itemView) {
             super(itemView);
@@ -132,4 +129,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
     }
+
 }

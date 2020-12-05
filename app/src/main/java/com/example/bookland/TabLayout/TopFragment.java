@@ -1,5 +1,6 @@
 package com.example.bookland.TabLayout;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bookland.Activity.ActivityCategory;
 import com.example.bookland.Book;
 import com.example.bookland.R;
 import com.example.bookland.Recycler.RecyclerViewAdapter;
@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Context;
 
 import java.util.ArrayList;
 
@@ -30,18 +29,6 @@ public class TopFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Book> mData;
-    Context context;
-
-    private boolean check;
-
-    public boolean isCheck() {
-        return check;
-    }
-
-    public void setCheck(boolean check) {
-        this.check = check;
-    }
-
     private DatabaseReference myRef;
 
     private static final String ARG_PARAM1 = "param1";
@@ -66,6 +53,7 @@ public class TopFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -74,8 +62,9 @@ public class TopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_top, container, false);
-        recyclerView = view.findViewById(R.id.recycler_id);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_id);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setHasFixedSize(true);
 
         myRef = FirebaseDatabase.getInstance().getReference();
         mData = new ArrayList<>();
@@ -91,6 +80,7 @@ public class TopFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ClearAll();
                 for(DataSnapshot i : snapshot.getChildren()){
                     Book book = new Book();
                     book.setImage(i.child("image").getValue().toString());
@@ -100,12 +90,12 @@ public class TopFragment extends Fragment {
                     book.setRating(i.child("rating").getValue().toString());
                     book.setDescription(i.child("description").getValue().toString());
                     book.setCategory(i.child("category").getValue().toString());
+                    book.setStatus(i.child("status").getValue().toString());
                     mData.add(book);
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), mData);
                 recyclerView.setAdapter(recyclerViewAdapter);
                 recyclerViewAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -113,7 +103,6 @@ public class TopFragment extends Fragment {
 
             }
         });
-
 
     }
     private void ClearAll(){
@@ -123,5 +112,6 @@ public class TopFragment extends Fragment {
                 recyclerViewAdapter.notifyDataSetChanged();
             }
         }
+        mData = new ArrayList<>();
     }
 }
