@@ -90,7 +90,7 @@ public class TopFragment extends Fragment {
                     book.setRating(i.child("rating").getValue().toString());
                     book.setDescription(i.child("description").getValue().toString());
                     book.setCategory(i.child("category").getValue().toString());
-                    book.setStatus(i.child("status").getValue().toString());
+                    book.setPages(i.child("pages").getValue().toString());
                     mData.add(book);
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), mData);

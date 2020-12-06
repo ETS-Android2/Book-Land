@@ -8,12 +8,13 @@ public class Book {
     private String rating;
     private String description;
     private String category;
-    private String status;
+    private String pages;
 
     public Book() {
     }
 
-    public Book(String name, String author, String price, String image, String rating, String description,String category, String status) {
+    public Book(String name, String author, String price, String image, String rating, String description,
+                String category, String pages) {
         this.name = name;
         this.author = author;
         this.price = price;
@@ -21,15 +22,15 @@ public class Book {
         this.rating = rating;
         this.description = description;
         this.category = category;
-        this.status = status;
+        this.pages = pages;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPages() {
+        return pages;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPages(String pages) {
+        this.pages = pages;
     }
 
     public String getCategory() {

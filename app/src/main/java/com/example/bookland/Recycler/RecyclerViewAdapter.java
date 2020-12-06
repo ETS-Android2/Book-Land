@@ -96,11 +96,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetail.class);
                 intent.putExtra("name", mData.get(position).getName());
+                intent.putExtra("author", mData.get(position).getAuthor());
+                intent.putExtra("genre", mData.get(position).getCategory());
                 intent.putExtra("price", mData.get(position).getPrice());
                 intent.putExtra("image", mData.get(position).getImage());
                 intent.putExtra("rating", mData.get(position).getRating());
+                intent.putExtra("pages", mData.get(position).getPages());
                 intent.putExtra("description", mData.get(position).getDescription());
-
                 context.startActivity(intent);
             }
         });
