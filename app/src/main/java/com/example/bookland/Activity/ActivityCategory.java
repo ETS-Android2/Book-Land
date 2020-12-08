@@ -70,9 +70,9 @@ public class ActivityCategory extends AppCompatActivity {
         dataFantasy=new ArrayList<>();
         dataScience=new ArrayList<>();
         dataSports=new ArrayList<>();
-        dataDetective=new ArrayList<>();
-        dataEconomics=new ArrayList<>();
+
         dataPhilosophy=new ArrayList<>();
+        dataDetective=new ArrayList<>();
 
         recyclerView = findViewById(R.id.recycler);
         categoryN = getIntent().getStringExtra("categoryName");
