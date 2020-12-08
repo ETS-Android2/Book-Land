@@ -32,8 +32,6 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter<RecyclerCatego
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.card_category, parent, false);
-        ActivityCategory activityCategory = new ActivityCategory();
-        activityCategory.setPositionD(viewType);
         return new MyView(view);
     }
 

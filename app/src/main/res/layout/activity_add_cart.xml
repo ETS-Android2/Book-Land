@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_addCart"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="8dp"
+    android:layout_height="100dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:id="@+id/name2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name2"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:id="@+id/price"
+            android:text="250"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+    
+    
+
+</androidx.cardview.widget.CardView>

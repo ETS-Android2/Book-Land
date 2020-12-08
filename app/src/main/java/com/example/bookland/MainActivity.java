@@ -13,6 +13,7 @@ import com.example.bookland.BottomNavigation.FragmentCategory;
 import com.example.bookland.BottomNavigation.FragmentHome;
 import com.example.bookland.BottomNavigation.FragmentMark;
 import com.example.bookland.BottomNavigation.FragmentSearch;
+import com.example.bookland.BottomNavigation.FragmentShopping;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     BottomNavigationView myNavig;
-    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -28,13 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myNavig = findViewById(R.id.bottom_navigation);
-        tabLayout = findViewById(R.id.tablayout);
-        viewPager = findViewById(R.id.viewpager);
-
-        sharedPreferences = getSharedPreferences("user", 0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("switch", "StringTrue");
-        editor.apply();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new FragmentHome()).commit();
 
@@ -54,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_search:
                         fragment = new FragmentSearch();
+                        break;
+                    case R.id.navigation_shopping:
+                        fragment = new FragmentShopping();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, fragment).commit();

@@ -32,15 +32,6 @@ public class ActivityCategory extends AppCompatActivity {
     RecyclerCategoryCard recyclerCategoryCard;
     DatabaseReference cRef;
     Context context;
-    private int positionD;
-
-    public int getPositionD() {
-        return positionD;
-    }
-
-    public void setPositionD(int positionD) {
-        this.positionD = positionD;
-    }
 
     ArrayList<BookCard> dataBiography;
     ArrayList<BookCard> dataBusiness;

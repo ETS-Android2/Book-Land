@@ -25,7 +25,7 @@ public class FragmentCategory extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_category, container, false);
+        view = inflater.inflate(R.layout.fragment_category, container, false);
         category = getResources().getStringArray(R.array.BookCategory);
         recyclerView = view.findViewById(R.id.recycler_categ);
         RecyclerCategoryAdapter recyclerCategoryAdapter = new RecyclerCategoryAdapter(getContext(), category, image);
