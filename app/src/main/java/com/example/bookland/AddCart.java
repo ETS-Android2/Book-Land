@@ -3,12 +3,12 @@ package com.example.bookland;
 public class AddCart {
     private String name;
     private String price;
-    private int count;
+    private String count;
 
     public AddCart() {
     }
 
-    public AddCart(String name, String price, int count) {
+    public AddCart(String name, String price, String count) {
         this.name = name;
         this.price = price;
         this.count = count;
@@ -30,11 +30,11 @@ public class AddCart {
         this.price = price;
     }
 
-    public int getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 }

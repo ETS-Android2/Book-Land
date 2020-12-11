@@ -18,9 +18,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bookland.AddCart;
-import com.example.bookland.BottomNavigation.FragmentShopping;
 import com.example.bookland.R;
 import com.example.bookland.Recycler.RecyclerAddCart;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +37,17 @@ public class BookDetail extends AppCompatActivity {
     private int count;
     private String bookName;
     private String bookPrice;
-    SharedPreferences sharedPreferences;
     Context context;
-
     List<AddCart> cartData;
-    RecyclerView recyclerView;
-    RecyclerAddCart recyclerAddCart;
+
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
+        cartData = new ArrayList<>();
         initAll();
 
         Bundle bundle = getIntent().getExtras();
@@ -75,8 +76,7 @@ public class BookDetail extends AppCompatActivity {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BookDetail.this, CrdCardForm.class);
-                BookDetail.this.startActivity(intent);
+
             }
         });
         plusBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,22 +98,18 @@ public class BookDetail extends AppCompatActivity {
         add_shopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                cartData.add(new AddCart(bookName, bookPrice, count));
-
-
-                sharedPreferences = getSharedPreferences("cart", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt(bookName, count);
-                editor.apply();
+                String sCount = Integer.toString(count);
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("AddCart").child(bookName);
+                databaseReference.child("name").setValue(bookName);
+                databaseReference.child("price").setValue(bookPrice);
+                databaseReference.child("count").setValue(sCount);
 
                 Toast.makeText(BookDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        FragmentShopping shopping = new FragmentShopping();
-        shopping.setCartData(cartData);
     }
 
     private  void initAll(){
@@ -138,7 +134,7 @@ public class BookDetail extends AppCompatActivity {
         name1 = findViewById(R.id.name1);
         add_shopping = findViewById(R.id.add_shopping_btn);
 
-        cartData = new ArrayList<>();
 
     }
+
 }

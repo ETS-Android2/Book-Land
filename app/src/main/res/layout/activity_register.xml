@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/newregister"
+    tools:context=".Activity.ActivityRegister">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_name"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:hint="Full name"
+            android:backgroundTint="#A60101"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_email"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:hint="E-mail"
+            android:backgroundTint="#A60101"
+            android:textSize="20sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_password"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:backgroundTint="#A60101"
+            android:textSize="20sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_passwordR"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:inputType="textPassword"
+            android:hint="Re-enter password"
+            android:backgroundTint="#A60101"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/error"
+            android:textColor="#FF0000"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:id="@+id/sign_btn"
+            android:text="Sign up"
+            android:background="#A60101"
+            android:textColor="#ffff"/>
+    </LinearLayout>
+
+</RelativeLayout>

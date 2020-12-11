@@ -91,7 +91,6 @@ public class ActivityCategory extends AppCompatActivity {
                     bookCard.setImageUrlCard(i.child("image").getValue().toString());
                     bookCard.setNameCard(i.child("name").getValue().toString());
                     bookCard.setAuthorCard(i.child("author").getValue().toString());
-
                     bookCard.setPriceCard(i.child("price").getValue().toString());
                     bookCard.setRatingCard(i.child("rating").getValue().toString());
                     bookCard.setDescriptionCard(i.child("description").getValue().toString());
