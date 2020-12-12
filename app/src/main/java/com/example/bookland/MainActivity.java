@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     BottomNavigationView myNavig;
+    public static final int TOTAL_PRICE = 0;
 
 
     @Override

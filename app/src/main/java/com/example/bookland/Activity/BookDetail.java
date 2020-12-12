@@ -1,6 +1,8 @@
 package com.example.bookland.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bookland.AddCart;
+import com.example.bookland.BottomNavigation.FragmentShopping;
 import com.example.bookland.R;
 import com.example.bookland.Recycler.RecyclerAddCart;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +53,7 @@ public class BookDetail extends AppCompatActivity {
         cartData = new ArrayList<>();
         initAll();
 
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         bookName = bundle.getString("name");
         name.setText(bundle.getString("name"));
         bookPrice = bundle.getString("price");
@@ -98,9 +101,11 @@ public class BookDetail extends AppCompatActivity {
         add_shopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences1 = getSharedPreferences("userId", Context.MODE_PRIVATE);
+                final String Uid = sharedPreferences1.getString("Uid", "");
                 String sCount = Integer.toString(count);
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("AddCart").child(bookName);
+                databaseReference = firebaseDatabase.getReference("Users").child(Uid).child("AddCart").child(bookName);
                 databaseReference.child("name").setValue(bookName);
                 databaseReference.child("price").setValue(bookPrice);
                 databaseReference.child("count").setValue(sCount);

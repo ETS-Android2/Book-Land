@@ -1,80 +1,80 @@
 package com.example.bookland;
 
 public class BookCard {
-    private String nameCard;
-    private String authorCard;
-    private String priceCard;
-    private String imageUrlCard;
-    private String ratingCard;
-    private String descriptionCard;
-    private String categoryCard;
+    private String name;
+    private String author;
+    private String price;
+    private String image;
+    private String rating;
+    private String description;
+    private String category;
 
     public BookCard() {
     }
 
-    public BookCard(String nameCard, String authorCard, String priceCard, String imageUrlCard, String ratingCard, String descriptionCard, String categoryCard) {
-        this.nameCard = nameCard;
-        this.authorCard = authorCard;
-        this.priceCard = priceCard;
-        this.imageUrlCard = imageUrlCard;
-        this.ratingCard = ratingCard;
-        this.descriptionCard = descriptionCard;
-        this.categoryCard = categoryCard;
+    public BookCard(String name, String author, String price, String image, String rating, String description, String category) {
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.image = image;
+        this.rating = rating;
+        this.description = description;
+        this.category = category;
     }
 
-    public String getNameCard() {
-        return nameCard;
+    public String getName() {
+        return name;
     }
 
-    public void setNameCard(String nameCard) {
-        this.nameCard = nameCard;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAuthorCard() {
-        return authorCard;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthorCard(String authorCard) {
-        this.authorCard = authorCard;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getPriceCard() {
-        return priceCard;
+    public String getPrice() {
+        return price;
     }
 
-    public void setPriceCard(String priceCard) {
-        this.priceCard = priceCard;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getImageUrlCard() {
-        return imageUrlCard;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrlCard(String imageUrlCard) {
-        this.imageUrlCard = imageUrlCard;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getRatingCard() {
-        return ratingCard;
+    public String getRating() {
+        return rating;
     }
 
-    public void setRatingCard(String ratingCard) {
-        this.ratingCard = ratingCard;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
-    public String getDescriptionCard() {
-        return descriptionCard;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionCard(String descriptionCard) {
-        this.descriptionCard = descriptionCard;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getCategoryCard() {
-        return categoryCard;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryCard(String categoryCard) {
-        this.categoryCard = categoryCard;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

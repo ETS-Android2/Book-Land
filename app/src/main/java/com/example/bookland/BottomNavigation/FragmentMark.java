@@ -1,6 +1,7 @@
 package com.example.bookland.BottomNavigation;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,9 @@ public class FragmentMark extends Fragment {
         return view;
     }
     private void DataFirebase(){
-        Query query = myRef.child("Book_Saved");
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("userId", Context.MODE_PRIVATE);
+        String Uid = sharedPreferences1.getString("Uid", "");
+        Query query = myRef.child("Users").child(Uid).child("Book_Saved");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,7 +71,7 @@ public class FragmentMark extends Fragment {
                     bookMark.setDescriptionMark(i.child("description").getValue().toString());
                     MarkData.add(bookMark);
                 }
-                recyclerMarkAdapter = new RecyclerMarkAdapter(getActivity().getApplicationContext(), MarkData);
+                recyclerMarkAdapter = new RecyclerMarkAdapter(getActivity(), MarkData);
                 recyclerView.setAdapter(recyclerMarkAdapter);
                 recyclerMarkAdapter.notifyDataSetChanged();
             }

@@ -1,5 +1,6 @@
 package com.example.bookland.Recycler;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +34,11 @@ public class RecyclerAddCart extends RecyclerView.Adapter<RecyclerAddCart.MyCart
         return new MyCartView(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyCartView holder, int position) {
-        holder.name.setText(cartData.get(position).getName());
+        holder.name.setText(cartData.get(position).getName()+"    x  "+cartData.get(position).getCount());
         holder.price.setText(cartData.get(position).getPrice());
-
     }
 
     @Override

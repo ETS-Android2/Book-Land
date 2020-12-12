@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookland.Activity.LogIn;
 import com.example.bookland.Book;
 import com.example.bookland.R;
 import com.example.bookland.Recycler.RecyclerViewAdapter;
@@ -93,6 +94,7 @@ public class TopFragment extends Fragment {
                     book.setPages(i.child("pages").getValue().toString());
                     mData.add(book);
                 }
+
                 recyclerViewAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), mData);
                 recyclerView.setAdapter(recyclerViewAdapter);
                 recyclerViewAdapter.notifyDataSetChanged();

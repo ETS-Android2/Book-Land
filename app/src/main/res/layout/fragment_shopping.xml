@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#3B6E69"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_cart"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/order_card"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="6dp"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:background="#425142"
+            android:paddingLeft="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_id"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#ffff"
+                android:text="Total: 0 com"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/order_btn"
+                android:layout_weight="1"
+                android:text="order"
+                android:textColor="#ffff"
+                android:layout_marginBottom="6dp"
+                android:background="#71C80C"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

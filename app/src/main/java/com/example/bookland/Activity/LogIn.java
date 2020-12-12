@@ -3,7 +3,9 @@ package com.example.bookland.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.bookland.MainActivity;
 import com.example.bookland.R;
+import com.example.bookland.TabLayout.TopFragment;
 import com.example.bookland.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +28,8 @@ public class LogIn extends AppCompatActivity {
     TextView signUp;
     Button logIn;
     FirebaseAuth fAuth;
+    private  String user_id;
+
 
 
     @Override
@@ -50,6 +55,7 @@ public class LogIn extends AppCompatActivity {
             public void onClick(View v) {
                 final String tEmail = email.getText().toString().trim();
                 final String tPassword = password.getText().toString().trim();
+
                 if(tEmail.isEmpty()){
                     email.setError("Please fill your email!");
                     email.requestFocus();
@@ -65,15 +71,31 @@ public class LogIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             User user = new User(tEmail, tPassword);
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-
+                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Email").setValue(user);
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            SharedPreferences sharedPreferences = getSharedPreferences("userId", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("Uid", user_id);
+                            editor.apply();
                         }else{
                             Toast.makeText(LogIn.this, "Error"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+                /*
+                Bundle bundle = new Bundle();
+                bundle.putString("user", user_id[0]);
+                TopFragment topFragment = new TopFragment();
+                topFragment.setArguments(bundle);
+
+                 */
+
             }
         });
+    }
+
+    public String getUser_id() {
+        return user_id;
     }
 }

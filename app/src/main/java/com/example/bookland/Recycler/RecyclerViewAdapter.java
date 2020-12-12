@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bookland.Activity.LogIn;
 import com.example.bookland.Book;
 import com.example.bookland.Activity.BookDetail;
 import com.example.bookland.R;
@@ -27,10 +28,11 @@ import static android.content.Context.MODE_PRIVATE;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyView> {
     ArrayList<Book> mData;
     Context context;
-    FirebaseDatabase rootNode;
-    FirebaseDatabase rootNodeS;
-    DatabaseReference reference;
-    DatabaseReference referenceS;
+        FirebaseDatabase rootNode;
+        FirebaseDatabase rootNodeS;
+        DatabaseReference reference;
+        DatabaseReference referenceS;
+
 
     public RecyclerViewAdapter(Context context, ArrayList<Book> mData){
         this.context = context;
@@ -53,10 +55,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.rating.setText(mData.get(position).getRating());
         Glide.with(context).load(mData.get(position).getImage()).into(holder.image);
 
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Book_List");
-        
-        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences sharedPreferences1 = context.getSharedPreferences("userId", Context.MODE_PRIVATE);
+        final String Uid = sharedPreferences1.getString("Uid", "");
+        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref"+Uid, MODE_PRIVATE);
         String check = sharedPreferences.getString(mData.get(position).getName(), "");
         if(check.equals("0") || check.isEmpty() || check.equals("")){
             holder.saved.setImageResource(R.drawable.bookmark);
@@ -70,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
                     rootNodeS = FirebaseDatabase.getInstance();
-                    referenceS = rootNodeS.getReference("Book_Saved");
+                    referenceS = rootNodeS.getReference("Users").child(Uid).child("Book_Saved");
                     referenceS.child(mData.get(position).getName()).setValue(mData.get(position));
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -79,14 +80,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    referenceS = FirebaseDatabase.getInstance().getReference("Book_Saved").child(mData.get(position).getName());
+                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_saved").child(mData.get(position).getName());
                     referenceS.removeValue();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(mData.get(position).getName(), "0");
                     editor.apply();
 
                 }
-
             }
 
         });
@@ -106,7 +106,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

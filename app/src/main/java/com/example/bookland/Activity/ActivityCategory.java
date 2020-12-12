@@ -88,13 +88,13 @@ public class ActivityCategory extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot i : snapshot.getChildren()) {
                     BookCard bookCard = new BookCard();
-                    bookCard.setImageUrlCard(i.child("image").getValue().toString());
-                    bookCard.setNameCard(i.child("name").getValue().toString());
-                    bookCard.setAuthorCard(i.child("author").getValue().toString());
-                    bookCard.setPriceCard(i.child("price").getValue().toString());
-                    bookCard.setRatingCard(i.child("rating").getValue().toString());
-                    bookCard.setDescriptionCard(i.child("description").getValue().toString());
-                    bookCard.setCategoryCard(i.child("category").getValue().toString());
+                    bookCard.setImage(i.child("image").getValue().toString());
+                    bookCard.setName(i.child("name").getValue().toString());
+                    bookCard.setAuthor(i.child("author").getValue().toString());
+                    bookCard.setPrice(i.child("price").getValue().toString());
+                    bookCard.setRating(i.child("rating").getValue().toString());
+                    bookCard.setDescription(i.child("description").getValue().toString());
+                    bookCard.setCategory(i.child("category").getValue().toString());
                     if ((i.child("category").getValue().toString()).contains("biography")) {
                         dataBiography.add(bookCard);
                     }if ((i.child("category").getValue().toString()).contains("business")) {
