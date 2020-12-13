@@ -26,6 +26,7 @@
             android:layout_below="@+id/img_card"
             android:id="@+id/name_card"
             android:maxLines="1"
+            android:textColor="#000000"
             android:text="Name"
             android:textSize="16dp"
             android:paddingRight="5dp"
@@ -63,6 +64,7 @@
             android:layout_toRightOf="@+id/star_card"
             android:id="@+id/rating_card"
             android:text="Rating"
+            android:textColor="#000000"
             android:textSize="14sp"
             android:paddingLeft="5dp"/>
         <ImageView

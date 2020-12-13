@@ -20,4 +20,10 @@
         <item>Economics</item>
         <item>Philosophy &amp; Motivation</item>
     </string-array>
+    <string name="light">sans-serif-light</string>
+    <string name="medium">sans-serif-medium</string>
+    <string name="regular">sans-serif</string>
+    <string name="condensed">sans-serif-condensed</string>
+    <string name="black">sans-serif-black</string>
+    <string name="thin">sans-serif-thin</string>
 </resources>

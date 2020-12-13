@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,9 @@ public class FragmentShopping extends Fragment {
     Button placeBtn;
     TextView total;
     private DatabaseReference reference;
+    int myTotal = 0;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
 
 
     @SuppressLint("SetTextI18n")
@@ -57,6 +61,9 @@ public class FragmentShopping extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference();
         ClearAll();
         DataFirebase();
+
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("userId", Context.MODE_PRIVATE);
+        final String Uid = sharedPreferences1.getString("Uid", "");
 
         placeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +85,11 @@ public class FragmentShopping extends Fragment {
                             Toast.makeText(getActivity(), "Please fill the place and customer", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getActivity(), "Ordered Successfully", Toast.LENGTH_SHORT).show();
+                            DatabaseReference refer = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("AddCart");
+                            refer.removeValue();
+                            myTotal = 0;
                             alertDialog.dismiss();
+
                         }
                     }
                 });
@@ -89,11 +100,13 @@ public class FragmentShopping extends Fragment {
         return view;
 
     }
+    @SuppressLint("SetTextI18n")
     private void DataFirebase(){
         SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("userId", Context.MODE_PRIVATE);
         final String Uid = sharedPreferences1.getString("Uid", "");
         Query query = reference.child("Users").child(Uid).child("AddCart");
         query.addValueEventListener(new ValueEventListener() {
+            final int[] amountPrice = {0};
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ClearAll();
@@ -103,24 +116,23 @@ public class FragmentShopping extends Fragment {
                     addCart.setPrice(i.child("price").getValue().toString());
                     addCart.setCount(i.child("count").getValue().toString());
                     int priceOf = Integer.parseInt(i.child("price").getValue().toString());
+                    int amountOf = Integer.parseInt(i.child("count").getValue().toString());
+                    amountPrice[0] +=priceOf*amountOf;
 
-                    //int countOf = Integer.parseInt(i.child("count").getValue().toString());
-                    //System.out.println(priceOf);
-                    //
                     cartDataM.add(addCart);
                 }
                 recyclerAddCart = new RecyclerAddCart(getActivity(), cartDataM);
                 recyclerView1.setAdapter(recyclerAddCart);
                 recyclerAddCart.notifyDataSetChanged();
+                myTotal = amountPrice[0];
+                total.setText("Total: "+myTotal +" som");
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
     }
     private void ClearAll(){
         if(cartDataM != null){

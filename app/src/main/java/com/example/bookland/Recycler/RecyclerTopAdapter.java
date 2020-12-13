@@ -15,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.bookland.Activity.LogIn;
 import com.example.bookland.Book;
 import com.example.bookland.Activity.BookDetail;
 import com.example.bookland.R;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyView> {
+public class RecyclerTopAdapter extends RecyclerView.Adapter<RecyclerTopAdapter.MyView> {
     ArrayList<Book> mData;
     Context context;
         FirebaseDatabase rootNode;
@@ -34,7 +33,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         DatabaseReference referenceS;
 
 
-    public RecyclerViewAdapter(Context context, ArrayList<Book> mData){
+    public RecyclerTopAdapter(Context context, ArrayList<Book> mData){
         this.context = context;
         this.mData = mData;
     }
@@ -43,7 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_top, parent, false);
+        View view = inflater.inflate(R.layout.card_topnew, parent, false);
         return new MyView(view);
     }
 
@@ -54,6 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.price.setText(mData.get(position).getPrice());
         holder.rating.setText(mData.get(position).getRating());
         Glide.with(context).load(mData.get(position).getImage()).into(holder.image);
+        
 
         SharedPreferences sharedPreferences1 = context.getSharedPreferences("userId", Context.MODE_PRIVATE);
         final String Uid = sharedPreferences1.getString("Uid", "");
@@ -64,8 +64,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else {
             holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
         }
-        
         holder.saved.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
                 if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
@@ -80,7 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_saved").child(mData.get(position).getName());
+                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_Saved").child(mData.get(position).getName());
                     referenceS.removeValue();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(mData.get(position).getName(), "0");

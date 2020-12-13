@@ -5,19 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.bookland.Book;
 import com.example.bookland.BookCard;
-import com.example.bookland.MainActivity;
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerCategoryAdapter;
 import com.example.bookland.Recycler.RecyclerCategoryCard;
-import com.example.bookland.Recycler.RecyclerViewAdapter;
-import com.example.bookland.TabLayout.TopFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

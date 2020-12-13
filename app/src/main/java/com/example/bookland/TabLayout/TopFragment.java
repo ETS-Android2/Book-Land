@@ -1,6 +1,5 @@
 package com.example.bookland.TabLayout;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bookland.Activity.LogIn;
 import com.example.bookland.Book;
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerViewAdapter;
+import com.example.bookland.Recycler.RecyclerTopAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
 public class TopFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
-    RecyclerViewAdapter recyclerViewAdapter;
+    RecyclerTopAdapter recyclerTopAdapter;
     ArrayList<Book> mData;
     private DatabaseReference myRef;
 
@@ -95,9 +93,9 @@ public class TopFragment extends Fragment {
                     mData.add(book);
                 }
 
-                recyclerViewAdapter = new RecyclerViewAdapter(getActivity().getApplicationContext(), mData);
-                recyclerView.setAdapter(recyclerViewAdapter);
-                recyclerViewAdapter.notifyDataSetChanged();
+                recyclerTopAdapter = new RecyclerTopAdapter(getActivity().getApplicationContext(), mData);
+                recyclerView.setAdapter(recyclerTopAdapter);
+                recyclerTopAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -110,8 +108,8 @@ public class TopFragment extends Fragment {
     private void ClearAll(){
         if(mData != null){
             mData.clear();
-            if (recyclerViewAdapter != null) {
-                recyclerViewAdapter.notifyDataSetChanged();
+            if (recyclerTopAdapter != null) {
+                recyclerTopAdapter.notifyDataSetChanged();
             }
         }
         mData = new ArrayList<>();

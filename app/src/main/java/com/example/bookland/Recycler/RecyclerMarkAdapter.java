@@ -43,7 +43,7 @@ public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapte
     @Override
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.card_top, parent, false);
+        View view = inflater.inflate(R.layout.card_topnew, parent, false);
         return new MyView(view);    }
 
     @Override
@@ -53,24 +53,23 @@ public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapte
         holder.rating.setText(markData.get(position).getRatingMark());
         Glide.with(context).load(markData.get(position).getImageUrlMark()).into(holder.image);
 
-        rootNode = FirebaseDatabase.getInstance();
-        reference = rootNode.getReference("Book_List");
 
-        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences sharedPreferences1 = context.getSharedPreferences("userId", Context.MODE_PRIVATE);
+        final String Uid = sharedPreferences1.getString("Uid", "");
+        final SharedPreferences sharedPreferences = context.getSharedPreferences("pref"+Uid, MODE_PRIVATE);
         String check = sharedPreferences.getString(markData.get(position).getNameMark(), "");
         if(check.equals("0") || check.isEmpty() || check.equals("")){
             holder.saved.setImageResource(R.drawable.bookmark);
         }else {
             holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
         }
-
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(holder.saved.getDrawable().getConstantState() == context.getDrawable(R.drawable.bookmark).getConstantState()){
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
                     rootNodeS = FirebaseDatabase.getInstance();
-                    referenceS = rootNodeS.getReference("Book_Saved");
+                    referenceS = rootNodeS.getReference("Users").child(Uid).child("Book_Saved");
                     referenceS.child(markData.get(position).getNameMark()).setValue(markData.get(position));
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -79,14 +78,12 @@ public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapte
 
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    referenceS = FirebaseDatabase.getInstance().getReference("Book_Saved").child(markData.get(position).getNameMark());
+                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_Saved").child(markData.get(position).getNameMark());
                     referenceS.removeValue();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(markData.get(position).getNameMark(), "0");
                     editor.apply();
-
                 }
-
             }
 
         });
