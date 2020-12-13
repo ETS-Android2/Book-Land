@@ -83,13 +83,6 @@ public class LogIn extends AppCompatActivity {
                         }
                     }
                 });
-                /*
-                Bundle bundle = new Bundle();
-                bundle.putString("user", user_id[0]);
-                TopFragment topFragment = new TopFragment();
-                topFragment.setArguments(bundle);
-
-                 */
 
             }
         });

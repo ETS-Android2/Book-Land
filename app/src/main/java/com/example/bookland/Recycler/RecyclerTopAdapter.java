@@ -27,9 +27,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class RecyclerTopAdapter extends RecyclerView.Adapter<RecyclerTopAdapter.MyView> {
     ArrayList<Book> mData;
     Context context;
-        FirebaseDatabase rootNode;
         FirebaseDatabase rootNodeS;
-        DatabaseReference reference;
         DatabaseReference referenceS;
 
 

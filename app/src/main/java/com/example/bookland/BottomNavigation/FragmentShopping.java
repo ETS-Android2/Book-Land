@@ -42,8 +42,6 @@ public class FragmentShopping extends Fragment {
     TextView total;
     private DatabaseReference reference;
     int myTotal = 0;
-    DatabaseReference databaseReference;
-    FirebaseDatabase firebaseDatabase;
 
 
     @SuppressLint("SetTextI18n")

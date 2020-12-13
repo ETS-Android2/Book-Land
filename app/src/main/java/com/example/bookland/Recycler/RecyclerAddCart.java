@@ -12,8 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bookland.Activity.ActivityCategory;
-import com.example.bookland.Activity.BookDetail;
+
 import com.example.bookland.AddCart;
 import com.example.bookland.R;
 import com.google.firebase.database.DatabaseReference;
