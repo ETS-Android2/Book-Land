@@ -1,5 +1,14 @@
 # Book-Land
 
+#Short Description: This app help you  for order books. You can see all books in Book Shops with this apllication, review, choose you best books and order with this application. This application good opportunity for Book Shops and customers. This application flexible and simple to use. It has big potential!
+
+This app writed in Java in Android Studio. Main used things: RealTime Firebase | Firebase Storage | Firebase Auth, SharedPreferences, "Glide" for Image, Changeable icon, RecyclerViews and BottonNavigations.
+
+All data stored in Firebase.
+
+For pay, May add PayPal, Balance.kg, Elsom or etc.
+
+Screenshots:
 <img src="https://user-images.githubusercontent.com/49748480/102050106-5f0ab900-3e0c-11eb-87e7-0058a9043975.png" width="220" height="400" />    <img src="https://user-images.githubusercontent.com/49748480/102050112-63cf6d00-3e0c-11eb-8811-cf184efbd133.png" width="220" height="400" />
 
 
