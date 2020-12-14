@@ -17,6 +17,7 @@
             android:id="@+id/category_txt"
             android:textSize="24dp"
             android:text="category"
+            android:textColor="#212121"
             android:gravity="center"
             android:layout_weight="1"/>
         <ImageView

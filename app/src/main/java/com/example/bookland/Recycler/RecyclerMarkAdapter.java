@@ -92,6 +92,7 @@ public class RecyclerMarkAdapter extends RecyclerView.Adapter<RecyclerMarkAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("name", markData.get(position).getNameMark());
                 intent.putExtra("price", markData.get(position).getPriceMark());
                 intent.putExtra("image", markData.get(position).getImageUrlMark());

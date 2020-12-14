@@ -93,6 +93,7 @@ public class RecyclerNewAdapter extends RecyclerView.Adapter<RecyclerNewAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("name", mData.get(position).getName());
                 intent.putExtra("author", mData.get(position).getAuthor());
                 intent.putExtra("genre", mData.get(position).getCategory());

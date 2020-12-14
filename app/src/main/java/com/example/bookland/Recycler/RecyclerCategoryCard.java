@@ -61,6 +61,7 @@ public class RecyclerCategoryCard extends RecyclerView.Adapter<RecyclerCategoryC
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("name", cData.get(position).getName());
                 intent.putExtra("price", cData.get(position).getPrice());
                 intent.putExtra("image", cData.get(position).getImage());
