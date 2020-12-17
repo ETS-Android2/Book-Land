@@ -2,7 +2,7 @@
 
 #Short Description: This app help you  for order books. You can see all books in Book Shops with this apllication, review, choose you best books and order with this application. This application good opportunity for Book Shops and customers. This application flexible and simple to use. It has big potential!
 
-This app writed in Java in Android Studio. Main used things: RealTime Firebase | Firebase Storage | Firebase Auth, SharedPreferences, "Glide" for Image, Changeable icon, RecyclerViews and BottonNavigations.
+This app written in Java in Android Studio API26. Main used things: RealTime Firebase | Firebase Storage | Firebase Auth, SharedPreferences, "Glide" for Image, Changeable icon, RecyclerViews and BottonNavigations.
 
 All data stored in Firebase.
 
