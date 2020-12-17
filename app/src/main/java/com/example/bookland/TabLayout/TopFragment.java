@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bookland.Book;
+import com.example.bookland.Helpers.Book;
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerTopAdapter;
+import com.example.bookland.Adapters.RecyclerTopAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

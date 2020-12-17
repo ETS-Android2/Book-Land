@@ -31,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Order"
+        android:textColor="#ffff"
+        android:background="#212121"
         android:id="@+id/order_dialog"
         android:layout_below="@+id/customer"/>
 

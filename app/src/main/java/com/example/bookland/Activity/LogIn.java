@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookland.MainActivity;
 import com.example.bookland.R;
-import com.example.bookland.TabLayout.TopFragment;
-import com.example.bookland.User;
+import com.example.bookland.Helpers.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +29,8 @@ public class LogIn extends AppCompatActivity {
     Button logIn;
     FirebaseAuth fAuth;
     private  String user_id;
+    private ProgressBar bar;
+
 
 
 
@@ -42,6 +44,8 @@ public class LogIn extends AppCompatActivity {
         logIn = findViewById(R.id.log_btn);
         signUp = findViewById(R.id.register_btn);
         fAuth = FirebaseAuth.getInstance();
+
+
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +75,7 @@ public class LogIn extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             User user = new User(tEmail, tPassword);
+
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Email").setValue(user);
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -86,9 +91,5 @@ public class LogIn extends AppCompatActivity {
 
             }
         });
-    }
-
-    public String getUser_id() {
-        return user_id;
     }
 }

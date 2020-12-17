@@ -1,4 +1,4 @@
-package com.example.bookland.Recycler;
+package com.example.bookland.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,64 +15,48 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.bookland.Helpers.Book;
 import com.example.bookland.Activity.BookDetail;
-import com.example.bookland.Book;
-import com.example.bookland.BookCard;
 import com.example.bookland.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class RecyclerCategoryCard extends RecyclerView.Adapter<RecyclerCategoryCard.MyView> {
-    ArrayList<BookCard> cData;
+public class RecyclerTopAdapter extends RecyclerView.Adapter<RecyclerTopAdapter.MyView> {
+    ArrayList<Book> mData;
     Context context;
-    FirebaseDatabase rootNode;
-    FirebaseDatabase rootNodeS;
-    DatabaseReference reference;
-    DatabaseReference referenceS;
+        FirebaseDatabase rootNodeS;
+        DatabaseReference referenceS;
 
 
-    public RecyclerCategoryCard(Context context, ArrayList<BookCard> cData){
+    public RecyclerTopAdapter(Context context, ArrayList<Book> mData){
         this.context = context;
-        this.cData = cData;
+        this.mData = mData;
     }
-
 
     @NonNull
     @Override
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.activity_category_card, parent, false);
-        return new MyView(view);    }
+        View view = inflater.inflate(R.layout.card_topnew, parent, false);
+        return new MyView(view);
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull final MyView holder, final int position) {
-        holder.name.setText(cData.get(position).getName());
-        holder.price.setText(cData.get(position).getPrice());
-        holder.rating.setText(cData.get(position).getRating());
-        Glide.with(context).load(cData.get(position).getImage()).into(holder.image);
+        holder.name.setText(mData.get(position).getName());
+        holder.price.setText(mData.get(position).getPrice());
+        holder.rating.setText(mData.get(position).getRating());
+        Glide.with(context).load(mData.get(position).getImage()).into(holder.image);
+        
 
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, BookDetail.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("name", cData.get(position).getName());
-                intent.putExtra("price", cData.get(position).getPrice());
-                intent.putExtra("image", cData.get(position).getImage());
-                intent.putExtra("rating", cData.get(position).getRating());
-                intent.putExtra("description", cData.get(position).getDescription());
-                context.startActivity(intent);
-            }
-        });
         SharedPreferences sharedPreferences1 = context.getSharedPreferences("userId", Context.MODE_PRIVATE);
         final String Uid = sharedPreferences1.getString("Uid", "");
         final SharedPreferences sharedPreferences = context.getSharedPreferences("pref"+Uid, MODE_PRIVATE);
-        String check = sharedPreferences.getString(cData.get(position).getName(), "");
+        String check = sharedPreferences.getString(mData.get(position).getName(), "");
         if(check.equals("0") || check.isEmpty() || check.equals("")){
             holder.saved.setImageResource(R.drawable.bookmark);
         }else {
@@ -87,42 +70,64 @@ public class RecyclerCategoryCard extends RecyclerView.Adapter<RecyclerCategoryC
                     holder.saved.setImageResource(R.drawable.ic_baseline_bookmark_24);
                     rootNodeS = FirebaseDatabase.getInstance();
                     referenceS = rootNodeS.getReference("Users").child(Uid).child("Book_Saved");
-                    referenceS.child(cData.get(position).getName()).setValue(cData.get(position));
+                    referenceS.child(mData.get(position).getName()).setValue(mData.get(position));
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(cData.get(position).getName(), "1");
+                    editor.putString(mData.get(position).getName(), "1");
                     editor.apply();
 
                 }else{
                     holder.saved.setImageResource(R.drawable.bookmark);
-                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_Saved").child(cData.get(position).getName());
+                    referenceS = FirebaseDatabase.getInstance().getReference("Users").child(Uid).child("Book_Saved").child(mData.get(position).getName());
                     referenceS.removeValue();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(cData.get(position).getName(), "0");
+                    editor.putString(mData.get(position).getName(), "0");
                     editor.apply();
 
                 }
+            }
+
+        });
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BookDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("name", mData.get(position).getName());
+                intent.putExtra("author", mData.get(position).getAuthor());
+                intent.putExtra("genre", mData.get(position).getCategory());
+                intent.putExtra("price", mData.get(position).getPrice());
+                intent.putExtra("image", mData.get(position).getImage());
+                intent.putExtra("rating", mData.get(position).getRating());
+                intent.putExtra("pages", mData.get(position).getPages());
+                intent.putExtra("description", mData.get(position).getDescription());
+                context.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return cData.size();
+        return mData.size();
     }
 
     public class MyView extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView name, price, rating;
         ImageView image, saved;
+
+        @SuppressLint("UseCompatLoadingForDrawables")
         public MyView(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.gridCard);
-            name = itemView.findViewById(R.id.name_card);
-            price = itemView.findViewById(R.id.fee_card);
-            image = itemView.findViewById(R.id.img_card);
-            rating = itemView.findViewById(R.id.rating_card);
-            saved = itemView.findViewById(R.id.saved_card);
+            cardView = itemView.findViewById(R.id.gridlayout);
+            name = itemView.findViewById(R.id.name_id);
+            price = itemView.findViewById(R.id.fee_id);
+            image = itemView.findViewById(R.id.img_grid);
+            rating = itemView.findViewById(R.id.rating_id);
+            saved = itemView.findViewById(R.id.saved_id);
+
         }
     }
+
 }

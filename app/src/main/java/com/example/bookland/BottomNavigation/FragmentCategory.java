@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerCategoryAdapter;
+import com.example.bookland.Adapters.RecyclerCategoryAdapter;
 
 public class FragmentCategory extends Fragment {
     View view;

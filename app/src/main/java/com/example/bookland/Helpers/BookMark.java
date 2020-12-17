@@ -1,4 +1,4 @@
-package com.example.bookland;
+package com.example.bookland.Helpers;
 
 public class BookMark {
     private String nameMark;

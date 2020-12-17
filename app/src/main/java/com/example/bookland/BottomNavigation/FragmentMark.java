@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bookland.BookMark;
+import com.example.bookland.Helpers.BookMark;
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerMarkAdapter;
+import com.example.bookland.Adapters.RecyclerMarkAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

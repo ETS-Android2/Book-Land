@@ -1,4 +1,4 @@
-package com.example.bookland.Recycler;
+package com.example.bookland.Adapters;
 
 import android.content.Context;
 import android.content.Intent;

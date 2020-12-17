@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.example.bookland.BookCard;
+import com.example.bookland.Helpers.BookCard;
 import com.example.bookland.R;
-import com.example.bookland.Recycler.RecyclerCategoryCard;
+import com.example.bookland.Adapters.RecyclerCategoryCard;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

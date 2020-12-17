@@ -1,4 +1,4 @@
-package com.example.bookland.Recycler;
+package com.example.bookland.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.bookland.AddCart;
+import com.example.bookland.Helpers.AddCart;
 import com.example.bookland.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

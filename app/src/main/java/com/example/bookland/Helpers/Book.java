@@ -1,6 +1,6 @@
-package com.example.bookland;
+package com.example.bookland.Helpers;
 
-public class BookCard {
+public class Book {
     private String name;
     private String author;
     private String price;
@@ -8,17 +8,36 @@ public class BookCard {
     private String rating;
     private String description;
     private String category;
+    private String pages;
 
-    public BookCard() {
+    public Book() {
     }
 
-    public BookCard(String name, String author, String price, String image, String rating, String description, String category) {
+    public Book(String name, String author, String price, String image, String rating, String description,
+                String category, String pages) {
         this.name = name;
         this.author = author;
         this.price = price;
         this.image = image;
         this.rating = rating;
         this.description = description;
+        this.category = category;
+        this.pages = pages;
+    }
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -68,13 +87,5 @@ public class BookCard {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }
