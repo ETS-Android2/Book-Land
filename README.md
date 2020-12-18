@@ -8,6 +8,8 @@ All data stored in Firebase.
 
 For pay, May add PayPal, Balance.kg, Elsom or etc.
 
+Presenting with YouTube: https://youtu.be/A2eIZki6RHM
+
 Screenshots:
 
 <img src="https://user-images.githubusercontent.com/49748480/102050106-5f0ab900-3e0c-11eb-87e7-0058a9043975.png" width="220" height="400" />    <img src="https://user-images.githubusercontent.com/49748480/102050112-63cf6d00-3e0c-11eb-8811-cf184efbd133.png" width="220" height="400" />
