@@ -25,6 +25,4 @@ Screenshots:
 
 <img src="https://user-images.githubusercontent.com/49748480/102050940-ee649c00-3e0d-11eb-8581-0fdb859d64d0.png" width="900" height="480" />
 
-<img src="https://user-images.githubusercontent.com/49748480/102051217-6763f380-3e0e-11eb-9f41-c713bc2f1f2f.png" width="900" height="480" />
-
 <img src="https://user-images.githubusercontent.com/49748480/102051472-d04b6b80-3e0e-11eb-947e-7dd3c0f42ad5.png" width="900" height="480" />
